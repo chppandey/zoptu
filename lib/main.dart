@@ -13,26 +13,30 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DismissKeyBoard(
       child: ScreenUtilInit(
         minTextAdapt: true,
         splitScreenMode: true,
-        child: GetMaterialApp(
-          theme: light,
-          title: AppStrings.appName,
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: const [],
-          builder: (context, child) {
-            return MediaQuery(
-                data: MediaQuery.of(context)
-                    .copyWith(textScaler: TextScaler.noScaling),
-                child: child!);
-          },
-          home: const SplashScreen(),
-        ),
+        builder: (context, child) => _buildApp(context),
       ),
+    );
+  }
+
+  Widget _buildApp(BuildContext context) {
+    return GetMaterialApp(
+      theme: light,
+      title: AppStrings.appName,
+      debugShowCheckedModeBanner: false,
+      builder: (context, child) => MediaQuery(
+        data: MediaQuery.of(context).copyWith(
+          textScaler: TextScaler.noScaling,
+        ),
+        child: child!,
+      ),
+      home: const SplashScreen(),
     );
   }
 }
